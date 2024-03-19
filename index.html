@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КТ1</title>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #212121;
+        color: aliceblue;
+    }
+    table {
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid rgb(255, 255, 255);
+    }
+    td {
+        width: 50px;
+        height: 50px;
+        text-align: center;
+    }
+    .addnumber {
+    width: 130px;
+    font-size: 17px;
+}
+</style>
+</head>
+<body>
+<button onclick="addNumber()" class="addnumber">Добавить число</button>
+<table id="randomTable"></table>
+
+<script>
+    // Создаем массив с 30 случайными числами от 0 до 99
+    let numbers = Array.from({length: 30}, () => Math.floor(Math.random() * 100));
+    // Создаем начальную таблицу 5x6
+    let table = document.getElementById("randomTable");
+    let index = 0;
+    for (let i = 0; i < 5; i++) {
+        let row = table.insertRow();
+        for (let j = 0; j < 6; j++) {
+            let cell = row.insertCell();
+            cell.textContent = numbers[index];
+            if (numbers[index] >= 50) {
+                cell.style.backgroundColor = "orange";
+            }
+            index++;
+        }
+    }
+
+    // Функция для добавления случайного числа в таблицу
+    function addNumber() {
+        let newNumber = Math.floor(Math.random() * 100);
+        // Добавляем число в массив
+        numbers.push(newNumber);
+        // Добавляем число в таблицу
+        let rowIndex = Math.floor((index % 30) / 6);
+        let cellIndex = (index % 30) % 6;
+        let cell = table.rows[rowIndex].cells[cellIndex];
+        cell.textContent = newNumber;
+        if (newNumber >= 50) {
+            cell.style.backgroundColor = "orange";
+        } else {
+            cell.style.backgroundColor = "";
+        }
+        index++;
+
+    }
+</script>
+</body>
+</html>
